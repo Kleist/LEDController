@@ -17,7 +17,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="On"
+        android:text="@string/on"
         android:id="@+id/onButton"
         android:layout_below="@+id/statusLabel"
         android:layout_centerHorizontal="true"
@@ -26,7 +26,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Off"
+        android:text="@string/off"
         android:id="@+id/offButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
