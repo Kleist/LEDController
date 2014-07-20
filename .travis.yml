@@ -10,3 +10,5 @@ android:
     - android-sdk-license-bcbbd656
     - android-sdk-license-598b93a6
     - '.*intel.+'
+
+script: gradle build
