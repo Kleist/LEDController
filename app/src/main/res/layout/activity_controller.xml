@@ -9,17 +9,17 @@
     tools:context=".Controller">
 
     <TextView
-        android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/statusLabel"
+        android:focusableInTouchMode="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="On"
         android:id="@+id/onButton"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/statusLabel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp" />
 

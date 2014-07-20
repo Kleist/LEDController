@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">LEDController</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="turning_on">Turning on lights</string>
+    <string name="turning_off">Turning off lights</string>
     <string name="action_settings">Settings</string>
 
 </resources>
