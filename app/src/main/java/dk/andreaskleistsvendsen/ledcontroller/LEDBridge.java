@@ -1,6 +1,7 @@
 package dk.andreaskleistsvendsen.ledcontroller;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -8,6 +9,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.lang.Thread;
 
 public class LEDBridge {
     private final InetAddress ip_;
@@ -34,10 +36,18 @@ public class LEDBridge {
             }
             try {
                 socket = new DatagramSocket();
+                Log.d("Packet", String.format("Preparing packet: %d, %d, %d", data[0], data[1], data[2]));
                 DatagramPacket packet = new DatagramPacket(data, data.length, ip_, port_);
+                Thread.sleep(1000);
+                Log.d("Packet", "Sending packet");
                 socket.send(packet);
+                Thread.sleep(1000);
                 socket.close();
             } catch (IOException e) {
+                e.printStackTrace();
+                return LEDState.UNKNOWN_ERROR;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
                 return LEDState.UNKNOWN_ERROR;
             } finally {
                 if (socket != null) {

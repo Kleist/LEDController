@@ -22,3 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+task appStart(type: Exec, dependsOn: ':installDebug') {
+	commandLine 'adb', 'shell', 'am', 'start', '-n', 'dk.andreaskleistsvendsen.LEDController'
+}

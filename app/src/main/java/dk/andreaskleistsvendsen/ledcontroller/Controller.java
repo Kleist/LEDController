@@ -25,7 +25,7 @@ public class Controller extends Activity {
         setContentView(R.layout.activity_controller);
         statusLabel_ = (TextView) findViewById(R.id.statusLabel);
         try {
-            bridge_ = new LEDBridge("198.162.1.125", 8899);
+            bridge_ = new LEDBridge("10.5.15.119", 8899);
         } catch (UnknownHostException e) {
             statusLabel_.setText(e.getMessage());
             e.printStackTrace();
