@@ -64,11 +64,11 @@ public class LEDBridge {
     }
 
     public void allOn() throws IOException {
-        sendCommand_(0x41);
+        sendCommand_(0x42);
     }
 
     public void allOff() throws IOException {
-        sendCommand_(0x42);
+        sendCommand_(0x41);
     }
 
     private void sendCommand_(int first) throws IOException {
