@@ -63,16 +63,39 @@ public class LEDBridge {
         port_ = port;
     }
 
-    public void allOn() throws IOException {
+    public void rgbOn() throws IOException {
         sendCommand_(0x42);
     }
 
-    public void allOff() throws IOException {
+    public void rgbOff() throws IOException {
         sendCommand_(0x41);
     }
 
+    public void whiteOn() throws IOException {
+        sendCommand_(0x35);
+    }
+
+    public void whiteOff() throws IOException {
+        sendCommand_(0x39);
+    }
+
+    public void allOn() throws IOException {
+        Log.d("LEDBridge", "rgbOn()");
+        rgbOn();
+        Log.d("LEDBridge", "whiteOn()");
+        whiteOn();
+        Log.d("LEDBridge", "allOn() done");
+    }
+
+    public void allOff() throws IOException {
+        Log.d("LEDBridge", "rgbOff()");
+        rgbOff();
+        Log.d("LEDBridge", "whiteOff()");
+        whiteOff();
+        Log.d("LEDBridge", "allOff() done");
+    }
+
     private void sendCommand_(int first) throws IOException {
-        byte[] outData = new byte[]{(byte) first, 0, 0x55};
         new SendPacketTask(this).execute((byte) first, (byte) 0, (byte) 0x55);
     }
 }
