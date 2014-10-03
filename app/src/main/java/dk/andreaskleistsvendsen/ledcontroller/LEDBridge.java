@@ -38,10 +38,11 @@ public class LEDBridge {
                 socket = new DatagramSocket();
                 Log.d("Packet", String.format("Preparing packet: %d, %d, %d", data[0], data[1], data[2]));
                 DatagramPacket packet = new DatagramPacket(data, data.length, ip_, port_);
-                Thread.sleep(1000);
                 Log.d("Packet", "Sending packet");
-                socket.send(packet);
-                Thread.sleep(1000);
+                for (int i=0; i<3; ++i) {
+                    socket.send(packet);
+                    Thread.sleep(50);
+                }
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
