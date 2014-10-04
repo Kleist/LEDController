@@ -51,8 +51,13 @@ public class Controller extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addButtonListeners() {
-        ((Button) findViewById(R.id.btnAllOn)).setOnClickListener(new View.OnClickListener() {
+    private void addListener_(int id, View.OnClickListener listener) {
+        Button btn = (Button) findViewById(id);
+        btn.setOnClickListener(listener);
+    }
+
+    void addButtonListeners() {
+        addListener_(R.id.btnAllOn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -65,7 +70,7 @@ public class Controller extends Activity {
             }
         });
 
-        ((Button) findViewById(R.id.btnAllOff)).setOnClickListener(new View.OnClickListener() {
+        addListener_(R.id.btnAllOff, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
