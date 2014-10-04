@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 
 
 public class Controller extends Activity {
-
+    private static final String HOME_IP_ADDRESS = "192.168.1.125"; // Milight2
     private Button onButton_;
     private Button offButton_;
     private TextView statusLabel_;
@@ -25,7 +25,7 @@ public class Controller extends Activity {
         setContentView(R.layout.activity_controller);
         statusLabel_ = (TextView) findViewById(R.id.statusLabel);
         try {
-            bridge_ = new LEDBridge("10.5.15.119", 8899);
+            bridge_ = new LEDBridge(HOME_IP_ADDRESS, 8899);
         } catch (UnknownHostException e) {
             statusLabel_.setText(e.getMessage());
             e.printStackTrace();
