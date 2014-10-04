@@ -17,7 +17,7 @@ public class Controller extends Activity {
     private TextView statusLabel_;
     private LEDBridge bridge_;
 
-    @Override
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
@@ -56,31 +56,53 @@ public class Controller extends Activity {
         btn.setOnClickListener(listener);
     }
 
-    void addButtonListeners() {
-        addListener_(R.id.btnAllOn, new View.OnClickListener() {
+    private void addListener2_(int id, final String msg, final Runnable runnable) {
+        Button btn = (Button) findViewById(id);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    bridge_.allOn();
-                    statusLabel_.setText(R.string.turning_on);
-                } catch (IOException e) {
-                    statusLabel_.setText(e.getMessage());
-                    e.printStackTrace();
-                }
+                runnable.run();
+                statusLabel_.setText(msg);
+            }
+        });
+    }
+
+    void addButtonListeners() {
+        addListener2_(R.id.btnAllOff, "Turning all off", new Runnable(){
+            @Override public void run() {
+                bridge_.allOff();
             }
         });
 
-        addListener_(R.id.btnAllOff, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    bridge_.allOff();
-                    statusLabel_.setText(R.string.turning_off);
-                } catch (IOException e) {
-                    statusLabel_.setText(e.getMessage());
-                    e.printStackTrace();
-                }
+        addListener2_(R.id.btnAllOn, "Turning all on", new Runnable(){
+            @Override public void run() {
+                bridge_.allOn();
             }
         });
+
+        addListener2_(R.id.btnWhiteOff, "Turning white off", new Runnable(){
+            @Override public void run() {
+                bridge_.whiteOff();
+            }
+        });
+
+        addListener2_(R.id.btnWhiteOn, "Turning white on", new Runnable(){
+            @Override public void run() {
+                bridge_.whiteOn();
+            }
+        });
+
+        addListener2_(R.id.btnRGBOff, "Turning RGB off", new Runnable(){
+            @Override public void run() {
+                bridge_.rgbOff();
+            }
+        });
+
+        addListener2_(R.id.btnRGBOn, "Turning RGB on", new Runnable(){
+            @Override public void run() {
+                bridge_.rgbOn();
+            }
+        });
+
     }
 }

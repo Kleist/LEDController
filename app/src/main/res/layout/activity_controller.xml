@@ -53,4 +53,74 @@
         android:layout_alignTop="@+id/btnAllOff"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="White"
+        android:id="@+id/textView2"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/btnAllOn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="On"
+        android:id="@+id/btnWhiteOn"
+        android:layout_toStartOf="@+id/btnAllOff"
+        android:width="100dp"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/btnAllOn"
+        android:layout_alignStart="@+id/btnAllOn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Off"
+        android:id="@+id/btnWhiteOff"
+        android:width="100dp"
+        android:layout_alignTop="@+id/btnWhiteOn"
+        android:layout_alignRight="@+id/btnAllOff"
+        android:layout_alignEnd="@+id/btnAllOff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="RGB"
+        android:id="@+id/textView3"
+        android:height="40dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/btnWhiteOn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="On"
+        android:id="@+id/btnRGBOn"
+        android:layout_toStartOf="@+id/btnAllOff"
+        android:width="100dp"
+        android:layout_below="@+id/btnWhiteOn"
+        android:layout_alignLeft="@+id/btnWhiteOn"
+        android:layout_alignStart="@+id/btnWhiteOn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Off"
+        android:id="@+id/btnRGBOff"
+        android:width="100dp"
+        android:layout_below="@+id/btnWhiteOff"
+        android:layout_alignLeft="@+id/btnWhiteOff"
+        android:layout_alignStart="@+id/btnWhiteOff" />
+
 </RelativeLayout>

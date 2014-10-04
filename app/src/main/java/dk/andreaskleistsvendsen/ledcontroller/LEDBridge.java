@@ -79,33 +79,33 @@ public class LEDBridge {
         port_ = port;
     }
 
-    public void rgbOn() throws IOException {
+    public void rgbOn() {
         sendCommands_(CMD_RGB_ON);
     }
 
-    public void rgbOff() throws IOException {
+    public void rgbOff() {
         sendCommands_(CMD_RGB_OFF);
     }
 
-    public void whiteOn() throws IOException {
+    public void whiteOn() {
         sendCommands_(CMD_WHITE_ON);
     }
 
-    public void whiteOff() throws IOException {
+    public void whiteOff() {
         sendCommands_(CMD_WHITE_OFF);
     }
 
-    public void allOn() throws IOException {
+    public void allOn() {
         Log.d("LEDBridge", "allOn()");
         sendCommands_(CMD_RGB_ON, CMD_WHITE_ON);
     }
 
-    public void allOff() throws IOException {
+    public void allOff() {
         Log.d("LEDBridge", "allOff()");
         sendCommands_(CMD_RGB_OFF, CMD_WHITE_OFF);
     }
 
-    private void sendCommands_(byte... commands) throws IOException {
+    private void sendCommands_(byte... commands) {
         Log.d("LEDBridge", String.format("sendCommands_(%d commands)", commands.length));
         ArrayList<ArrayList<Byte>> commandBytes = new ArrayList<ArrayList<Byte>>();
         for (int i = 0; i<commands.length; ++i) {
