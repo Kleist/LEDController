@@ -12,23 +12,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/statusLabel"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:text="Status"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/on"
-        android:id="@+id/onButton"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="All lights"
+        android:id="@+id/textView"
         android:layout_below="@+id/statusLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp"
+        android:height="40dp"
+        android:gravity="center_vertical" />
 
     <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/off"
-        android:id="@+id/offButton"
-        android:layout_centerVertical="true"
+        android:text="Off"
+        android:id="@+id/btnAllOff"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:width="100dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="On"
+        android:id="@+id/btnAllOn"
+        android:layout_toStartOf="@+id/btnAllOff"
+        android:width="100dp"
+        android:layout_alignTop="@+id/btnAllOff"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

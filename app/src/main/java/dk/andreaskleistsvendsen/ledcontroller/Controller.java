@@ -14,8 +14,6 @@ import java.net.UnknownHostException;
 
 public class Controller extends Activity {
     private static final String HOME_IP_ADDRESS = "192.168.1.125"; // Milight2
-    private Button onButton_;
-    private Button offButton_;
     private TextView statusLabel_;
     private LEDBridge bridge_;
 
@@ -54,10 +52,7 @@ public class Controller extends Activity {
     }
 
     private void addButtonListeners() {
-        onButton_ = (Button) findViewById(R.id.onButton);
-        offButton_ = (Button) findViewById(R.id.offButton);
-
-        onButton_.setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.btnAllOn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -70,7 +65,7 @@ public class Controller extends Activity {
             }
         });
 
-        offButton_.setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.btnAllOff)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
