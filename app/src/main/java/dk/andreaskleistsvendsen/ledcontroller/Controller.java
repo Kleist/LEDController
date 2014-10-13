@@ -13,7 +13,7 @@ import java.net.UnknownHostException;
 
 
 public class Controller extends Activity {
-    private static final String HOME_IP_ADDRESS = "192.168.1.125"; // Milight2
+    private static final String HOME_IP_ADDRESS = "192.168.1.124"; // Milight2
     private TextView statusLabel_;
     private LEDBridge bridge_;
 
