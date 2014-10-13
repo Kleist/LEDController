@@ -5,9 +5,5 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom">
-        <menu>
-            <item android:id="@+id/ip_address"
-                android:title="IP Address" />
-        </menu>
     </item>
 </menu>
