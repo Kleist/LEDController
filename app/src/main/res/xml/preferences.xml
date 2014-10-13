@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="ip_address"
+        android:title="IP Address"
+        android:dialogTitle="IP Address of Wifi Box"
+        android:defaultValue="192.168.1.124"
+        />
+</PreferenceScreen>
