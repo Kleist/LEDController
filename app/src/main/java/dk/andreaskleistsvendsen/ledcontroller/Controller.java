@@ -1,7 +1,11 @@
 package dk.andreaskleistsvendsen.ledcontroller;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,17 +17,22 @@ import java.net.UnknownHostException;
 
 
 public class Controller extends Activity {
-    private static final String HOME_IP_ADDRESS = "192.168.1.124"; // Milight2
+    private String ipAddress_;
     private TextView statusLabel_;
     private LEDBridge bridge_;
+    private SharedPreferences preferences_;
 
-@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
         statusLabel_ = (TextView) findViewById(R.id.statusLabel);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        preferences_ = PreferenceManager.getDefaultSharedPreferences(this);
+        ipAddress_ = preferences_.getString("ip_address", "undefined");
+        Log.d("LEDController", String.format("ip_address = %s", ipAddress_));
         try {
-            bridge_ = new LEDBridge(HOME_IP_ADDRESS, 8899);
+            bridge_ = new LEDBridge(ipAddress_, 8899);
         } catch (UnknownHostException e) {
             statusLabel_.setText(e.getMessage());
             e.printStackTrace();
@@ -46,9 +55,10 @@ public class Controller extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            getFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new SettingsFragment())
-                    .commit();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, new SettingsFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
         return super.onOptionsItemSelected(item);
     }
