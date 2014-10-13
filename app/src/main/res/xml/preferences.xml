@@ -7,4 +7,11 @@
         android:dialogTitle="IP Address of Wifi Box"
         android:defaultValue="192.168.1.124"
         />
+    <EditTextPreference
+        android:key="port"
+        android:title="Port"
+        android:dialogTitle="Port number for the Wifi Box"
+        android:defaultValue="8899"
+        android:numeric="integer"
+        />
 </PreferenceScreen>

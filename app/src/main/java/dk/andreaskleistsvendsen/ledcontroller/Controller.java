@@ -17,7 +17,6 @@ import java.net.UnknownHostException;
 
 
 public class Controller extends Activity {
-    private String ipAddress_;
     private TextView statusLabel_;
     private LEDBridge bridge_;
     private SharedPreferences preferences_;
@@ -29,15 +28,25 @@ public class Controller extends Activity {
         statusLabel_ = (TextView) findViewById(R.id.statusLabel);
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         preferences_ = PreferenceManager.getDefaultSharedPreferences(this);
-        ipAddress_ = preferences_.getString("ip_address", "undefined");
-        Log.d("LEDController", String.format("ip_address = %s", ipAddress_));
+        preferences_.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                initLEDBridge_();
+            }
+        });
+        initLEDBridge_();
+        addButtonListeners();
+    }
+
+    private void initLEDBridge_() {
         try {
-            bridge_ = new LEDBridge(ipAddress_, 8899);
+            String ipAddress = preferences_.getString("ip_address", "undefined");
+            int port = Integer.parseInt(preferences_.getString("port", "8899"));
+            bridge_ = new LEDBridge(ipAddress, port);
         } catch (UnknownHostException e) {
             statusLabel_.setText(e.getMessage());
             e.printStackTrace();
         }
-        addButtonListeners();
     }
 
 
