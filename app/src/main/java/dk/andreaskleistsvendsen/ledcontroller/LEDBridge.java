@@ -7,11 +7,25 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.lang.Thread;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LEDBridge {
+    enum LED {
+        ALL,
+        RGB,
+        WHITE,
+//        RGB_0,
+//        RGB_1,
+//        RGB_2,
+//        RGB_3,
+//        WHITE_0,
+//        WHITE_1,
+//        WHITE_2,
+//        WHITE_3
+    }
     private static final int RETRANSMISSIONS = 3;
     private static final int WAIT_AFTER_TRANSMISSION_IN_MS = 50;
 
@@ -19,6 +33,28 @@ public class LEDBridge {
     private static final byte CMD_RGB_OFF = 0x41;
     private static final byte CMD_WHITE_ON = 0x35;
     private static final byte CMD_WHITE_OFF = 0x39;
+
+    private static final HashMap<LED, ArrayList<Byte>> onCommands_;
+    private static final HashMap<LED, ArrayList<Byte>> offCommands_;
+    static {
+        onCommands_ = new HashMap<LED, ArrayList<Byte>>();
+        offCommands_ = new HashMap<LED, ArrayList<Byte>>();
+        addCommands(onCommands_, LED.ALL, CMD_RGB_ON, CMD_WHITE_ON);
+        addCommands(onCommands_, LED.RGB, CMD_RGB_ON);
+        addCommands(onCommands_, LED.WHITE, CMD_WHITE_ON);
+        addCommands(offCommands_, LED.ALL, CMD_RGB_OFF, CMD_WHITE_OFF);
+        addCommands(offCommands_, LED.RGB, CMD_RGB_OFF);
+        addCommands(offCommands_, LED.WHITE, CMD_WHITE_OFF);
+    }
+
+    private static void addCommands(HashMap<LED,ArrayList<Byte>> map, LED led, byte... commands) {
+        ArrayList<Byte> array = new ArrayList<Byte>();
+        for (byte cmd : commands) {
+            array.add(cmd);
+        }
+        map.put(led, array);
+    }
+
 
     private final InetAddress ip_;
     private final int port_;
@@ -79,39 +115,45 @@ public class LEDBridge {
         port_ = port;
     }
 
+    public void on(LED led) {
+        sendCommands_(onCommands_.get(led));
+    }
+
+    public void off(LED led) {
+        sendCommands_(offCommands_.get(led));
+    }
+
     public void rgbOn() {
-        sendCommands_(CMD_RGB_ON);
+        on(LED.RGB);
     }
 
     public void rgbOff() {
-        sendCommands_(CMD_RGB_OFF);
+        off(LED.RGB);
     }
 
     public void whiteOn() {
-        sendCommands_(CMD_WHITE_ON);
+        on(LED.WHITE);
     }
 
     public void whiteOff() {
-        sendCommands_(CMD_WHITE_OFF);
+        off(LED.WHITE);
     }
 
     public void allOn() {
-        Log.d("LEDBridge", "allOn()");
-        sendCommands_(CMD_RGB_ON, CMD_WHITE_ON);
+        on(LED.ALL);
     }
 
     public void allOff() {
-        Log.d("LEDBridge", "allOff()");
-        sendCommands_(CMD_RGB_OFF, CMD_WHITE_OFF);
+        off(LED.ALL);
     }
 
-    private void sendCommands_(byte... commands) {
-        Log.d("LEDBridge", String.format("sendCommands_(%d commands)", commands.length));
+    private void sendCommands_(ArrayList<Byte> commands) {
+        Log.d("LEDBridge", String.format("sendCommands_(%d commands)", commands.size()));
         ArrayList<ArrayList<Byte>> commandBytes = new ArrayList<ArrayList<Byte>>();
-        for (int i = 0; i<commands.length; ++i) {
-            Log.d("LEDBridge", String.format("sendCommands_(i) = %x", commands[i]));
+        for (int i = 0; i<commands.size(); ++i) {
+            Log.d("LEDBridge", String.format("sendCommands_(i) = %x", commands.get(i)));
             ArrayList<Byte> command = new ArrayList<Byte>(3);
-            command.add(commands[i]);
+            command.add(commands.get(i));
             command.add((byte)0);
             command.add((byte)0x55);
             commandBytes.add(command);

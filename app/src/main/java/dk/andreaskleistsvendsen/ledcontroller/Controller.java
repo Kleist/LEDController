@@ -83,45 +83,27 @@ public class Controller extends Activity {
 
     void addButtonListeners() {
         addListener_(R.id.btnAllOff, "Turning all off", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.allOff();
-            }
+            @Override public void run() { bridge_.allOff(); }
         });
 
         addListener_(R.id.btnAllOn, "Turning all on", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.allOn();
-            }
+            @Override public void run() { bridge_.allOn(); }
         });
 
         addListener_(R.id.btnWhiteOff, "Turning white off", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.whiteOff();
-            }
+            @Override public void run() { bridge_.whiteOff(); }
         });
 
         addListener_(R.id.btnWhiteOn, "Turning white on", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.whiteOn();
-            }
+            @Override public void run() { bridge_.whiteOn(); }
         });
 
         addListener_(R.id.btnRGBOff, "Turning RGB off", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.rgbOff();
-            }
+            @Override public void run() { bridge_.rgbOff(); }
         });
 
         addListener_(R.id.btnRGBOn, "Turning RGB on", new Runnable() {
-            @Override
-            public void run() {
-                bridge_.rgbOn();
-            }
+            @Override public void run() { bridge_.rgbOn(); }
         });
 
     }
