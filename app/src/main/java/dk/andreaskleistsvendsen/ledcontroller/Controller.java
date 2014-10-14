@@ -82,7 +82,8 @@ public class Controller extends Activity {
                 else {
                     statusLabel_.setText(led.toString() + " on");
                 }
-            });
+            }
+        });
     }
 
     void addButtonListeners() {
