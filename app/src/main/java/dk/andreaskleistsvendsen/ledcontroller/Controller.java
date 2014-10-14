@@ -70,41 +70,29 @@ public class Controller extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addListener_(int id, final String msg, final Runnable runnable) {
+    private void connectButton_(int id, final LEDBridge.LED led, final boolean on) {
         Button btn = (Button) findViewById(id);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                runnable.run();
-                statusLabel_.setText(msg);
-            }
-        });
+                bridge_.change(led, on);
+                if (on) {
+                    statusLabel_.setText(led.toString() + " on");
+                }
+                else {
+                    statusLabel_.setText(led.toString() + " on");
+                }
+            });
     }
 
     void addButtonListeners() {
-        addListener_(R.id.btnAllOff, "Turning all off", new Runnable() {
-            @Override public void run() { bridge_.allOff(); }
-        });
+        connectButton_(R.id.btnAllOff, LEDBridge.LED.ALL, false);
+        connectButton_(R.id.btnAllOn,  LEDBridge.LED.ALL, true);
 
-        addListener_(R.id.btnAllOn, "Turning all on", new Runnable() {
-            @Override public void run() { bridge_.allOn(); }
-        });
+        connectButton_(R.id.btnWhiteOff, LEDBridge.LED.WHITE, false);
+        connectButton_(R.id.btnWhiteOn,  LEDBridge.LED.WHITE, true);
 
-        addListener_(R.id.btnWhiteOff, "Turning white off", new Runnable() {
-            @Override public void run() { bridge_.whiteOff(); }
-        });
-
-        addListener_(R.id.btnWhiteOn, "Turning white on", new Runnable() {
-            @Override public void run() { bridge_.whiteOn(); }
-        });
-
-        addListener_(R.id.btnRGBOff, "Turning RGB off", new Runnable() {
-            @Override public void run() { bridge_.rgbOff(); }
-        });
-
-        addListener_(R.id.btnRGBOn, "Turning RGB on", new Runnable() {
-            @Override public void run() { bridge_.rgbOn(); }
-        });
-
+        connectButton_(R.id.btnRGBOff, LEDBridge.LED.RGB, false);
+        connectButton_(R.id.btnRGBOn,  LEDBridge.LED.RGB, true);
     }
 }

@@ -17,20 +17,26 @@ public class LEDBridge {
         ALL,
         RGB,
         WHITE,
-//        RGB_0,
-//        RGB_1,
-//        RGB_2,
-//        RGB_3,
-//        WHITE_0,
-//        WHITE_1,
-//        WHITE_2,
-//        WHITE_3
+        RGB_1,
+        RGB_2,
+        RGB_3,
+        RGB_4,
+        WHITE_1,
+        WHITE_2,
+        WHITE_3,
+        WHITE_4,
     }
     private static final int RETRANSMISSIONS = 3;
     private static final int WAIT_AFTER_TRANSMISSION_IN_MS = 50;
 
-    private static final byte CMD_RGB_ON = 0x42;
-    private static final byte CMD_RGB_OFF = 0x41;
+    private static final byte[] CMD_RGB_ON = {
+            0x42, // All
+            0x45, 0x47, 0x49, 0x4B, // Zone 0-3
+    };
+    private static final byte[] CMD_RGB_OFF = {
+            0x41, // All
+            0x46, 0x48, 0x4A, 0x4C, // Zone 0-3
+    };
     private static final byte CMD_WHITE_ON = 0x35;
     private static final byte CMD_WHITE_OFF = 0x39;
 
@@ -39,15 +45,25 @@ public class LEDBridge {
     static {
         onCommands_ = new HashMap<LED, ArrayList<Byte>>();
         offCommands_ = new HashMap<LED, ArrayList<Byte>>();
-        addCommands(onCommands_, LED.ALL, CMD_RGB_ON, CMD_WHITE_ON);
-        addCommands(onCommands_, LED.RGB, CMD_RGB_ON);
-        addCommands(onCommands_, LED.WHITE, CMD_WHITE_ON);
-        addCommands(offCommands_, LED.ALL, CMD_RGB_OFF, CMD_WHITE_OFF);
-        addCommands(offCommands_, LED.RGB, CMD_RGB_OFF);
-        addCommands(offCommands_, LED.WHITE, CMD_WHITE_OFF);
+
+        addCommands_(onCommands_, LED.ALL, CMD_RGB_ON[0], CMD_WHITE_ON);
+        addCommands_(onCommands_, LED.RGB, CMD_RGB_ON[0]);
+        addCommands_(onCommands_, LED.WHITE, CMD_WHITE_ON);
+        addCommands_(onCommands_, LED.RGB_1, CMD_RGB_ON[1]);
+        addCommands_(onCommands_, LED.RGB_2, CMD_RGB_ON[2]);
+        addCommands_(onCommands_, LED.RGB_3, CMD_RGB_ON[3]);
+        addCommands_(onCommands_, LED.RGB_4, CMD_RGB_ON[4]);
+
+        addCommands_(offCommands_, LED.ALL, CMD_RGB_OFF[0], CMD_WHITE_OFF);
+        addCommands_(offCommands_, LED.RGB, CMD_RGB_OFF[0]);
+        addCommands_(offCommands_, LED.WHITE, CMD_WHITE_OFF);
+        addCommands_(offCommands_, LED.RGB_1, CMD_RGB_OFF[1]);
+        addCommands_(offCommands_, LED.RGB_2, CMD_RGB_OFF[2]);
+        addCommands_(offCommands_, LED.RGB_3, CMD_RGB_OFF[3]);
+        addCommands_(offCommands_, LED.RGB_4, CMD_RGB_OFF[4]);
     }
 
-    private static void addCommands(HashMap<LED,ArrayList<Byte>> map, LED led, byte... commands) {
+    private static void addCommands_(HashMap<LED, ArrayList<Byte>> map, LED led, byte... commands) {
         ArrayList<Byte> array = new ArrayList<Byte>();
         for (byte cmd : commands) {
             array.add(cmd);
@@ -115,36 +131,13 @@ public class LEDBridge {
         port_ = port;
     }
 
-    public void on(LED led) {
-        sendCommands_(onCommands_.get(led));
-    }
-
-    public void off(LED led) {
-        sendCommands_(offCommands_.get(led));
-    }
-
-    public void rgbOn() {
-        on(LED.RGB);
-    }
-
-    public void rgbOff() {
-        off(LED.RGB);
-    }
-
-    public void whiteOn() {
-        on(LED.WHITE);
-    }
-
-    public void whiteOff() {
-        off(LED.WHITE);
-    }
-
-    public void allOn() {
-        on(LED.ALL);
-    }
-
-    public void allOff() {
-        off(LED.ALL);
+    public void change(LED led, boolean stateOn) {
+        if (stateOn) {
+            sendCommands_(onCommands_.get(led));
+        }
+        else {
+            sendCommands_(offCommands_.get(led));
+        }
     }
 
     private void sendCommands_(ArrayList<Byte> commands) {
