@@ -80,7 +80,7 @@ public class Controller extends Activity {
                     statusLabel_.setText(led.toString() + " on");
                 }
                 else {
-                    statusLabel_.setText(led.toString() + " on");
+                    statusLabel_.setText(led.toString() + " off");
                 }
             }
         });
